@@ -13,21 +13,21 @@ def read_root():
 def get_items():
     return sample_products
 
-@app.get("/product/{product_id}")
+@app.get("/products/{product_id}")
 def get_item(product_id: int):
     for product in sample_products:
-        if product.id == product_id:
+        if product["product_id"] == product_id:
             return product
     raise HTTPException(status_code=404, detail="Product not found")
 
-@app.post("/product", status_code=201)
+@app.post("/products", status_code=201)
 def create_item(product: dict):
-    if any(i["product_id"] == product["product_id"] for i in product):
+    if any(i["product_id"] == product["product_id"] for i in sample_products):
         raise HTTPException(status_code=400, detail="Item with this ID already exists")
     sample_products.append(product)
     return product
 
-@app.delete("/product/{product_id}", status_code=204)
+@app.delete("/products/{product_id}", status_code=204)
 def delete_item(product_id: int):
     for idx, product in enumerate(sample_products):
         if product["product_id"] == product_id:

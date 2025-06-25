@@ -3,6 +3,7 @@ import pytest
 from fastapi.testclient import TestClient
 from main import app
 import database
+import httpx
 
 client = TestClient(app)
 
@@ -47,38 +48,38 @@ def test_get_products_not_found():
 # get + param
 def test_get_product_success():
     pid = database.sample_product_3["product_id"]
-    response = client.get(f"/product/{pid}")
+    response = client.get(f"/products/{pid}")
     assert response.status_code == 200
     assert response.json()["product_id"] == pid
 
 def test_get_product_not_found_error():
-    response = client.get("/product/9999")
+    response = client.get("/products/9999")
     assert response.status_code == 404
     assert response.json()["detail"] == "Product not found"
 
 # post
 def test_create_product_success():
     new_product = {"product_id": 999, "name": "TestProd", "category": "Test", "price": 1.23}
-    response = client.post("/product", json=new_product)
+    response = client.post("/products", json=new_product)
     assert response.status_code == 201
     assert response.json() == new_product
 
 
 def test_create_product_duplicate_error():
     existing = database.sample_product_1.copy()
-    response = client.post("/product", json=existing)
+    response = client.post("/products", json=existing)
     assert response.status_code == 400
     assert response.json()["detail"] == "Item with this ID already exists"
 
 # delete
 def test_delete_product_success():
     pid = database.sample_product_2["product_id"]
-    response = client.delete(f"/product/{pid}")
+    response = client.delete(f"/products/{pid}")
     assert response.status_code == 204
-    get_resp = client.get(f"/product/{pid}")
+    get_resp = client.get(f"/products/{pid}")
     assert get_resp.status_code == 404
 
 def test_delete_product_not_found_error():
-    response = client.delete("/product/5555")
+    response = client.delete("/products/5555")
     assert response.status_code == 404
     assert response.json()["detail"] == "Product not found"
