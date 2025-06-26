@@ -16,8 +16,15 @@ project-root/
 2. Создайте и активируйте виртуальное окружение:
    ```bash
    python -m venv .venv
-   source .venv/bin/activate  # Linux/macOS
-   .venv\\Scripts\\activate   # Windows
+    ```
+   Активируйте его.
+   Если у вас Linux/macOS:
+   ```bash
+   source .venv/bin/activate
+    ```
+   Если у вас Windows
+   ```bash
+   .venv\\Scripts\\activate
     ```
 3. Установите зависимости командой в терминале:
     ```bash
