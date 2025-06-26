@@ -15,7 +15,7 @@ project-root/
 1. Сконируйте репозиторий командой:```git clone https://github.com/S-Kitaev/ex_iot_2_sem``` либо скачайте .zip файл проекта и распакуйте его и перейдите в папку проекта ```cd ex_iot_2_sem```
 2. Создайте и активируйте виртуальное окружение:
    ```bash
-   python -m .venv venv
+   python -m venv .venv
    source .venv/bin/activate  # Linux/macOS
    .venv\\Scripts\\activate   # Windows
     ```
@@ -23,7 +23,11 @@ project-root/
     ```bash
     pip install -r requirements.txt
     ```
-4. Для запуска сервера нажмите на ```run``` в файле ```main.py``` либо напишите в консоли:
+    Либо если же у вас версия python ниже 3.10, по попробуйте установить альтернативный файл с засимостями, другой командой в терминале:
+   ```bash
+    pip install -r requirements_1.txt
+    ```
+5. Для запуска сервера нажмите на ```run``` в файле ```main.py``` либо напишите в консоли:
 ```python main.py```
 
 ### Сервер запущен
